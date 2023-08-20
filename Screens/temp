@@ -1,0 +1,84 @@
+import { Button, StyleSheet, Text, View, TextInput ,Image} from 'react-native';
+import Logo from './Component/Logo';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Bottom from './Component/Bottom';
+import Input from './Component/Input';
+import { useState } from 'react';
+
+function LoginScreen(props) {
+  const [email, setEmail] = useState(null);
+  const [Password, setPassword] = useState(null);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Logo />
+      <Input
+        placeholder={'Email'}
+        onChangeText={(t) => setEmail(t)}
+      />
+       <Input
+        placeholder={'Password'}
+        onChangeText={(t) => setPassword(t)}
+      />
+      <Bottom />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});
+
+export default LoginScreen;
+import React from 'react';
+import { View, TextInput, ImageBackground, StyleSheet } from 'react-native';
+
+// Import your curved gradient image
+import curvedGradientImage from '../../assets/d.png';
+
+const Input = (props) => {
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        source={curvedGradientImage}
+        style={styles.backgroundImage}
+      >
+        <TextInput
+          placeholder={props.placeholder}
+          onChangeText={(t) => props.onChangeText(t)}
+          style={styles.textInput}
+        />
+      </ImageBackground>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    marginLeft:15,
+    marginTop:10,
+    alignItems: 'center',
+   //justifyContent: 'center',
+    flex: 1,
+  },
+  backgroundImage: {
+   
+    width: '100%',
+    padding: 10,
+    
+    
+  },
+  textInput: {
+    marginLeft:10,
+    height: 55,
+    borderRadius: 15, // Adjust the border radius as needed
+    padding: 10,
+    backgroundColor: 'transparent',
+    color: 'black',
+  },
+});
+
+
