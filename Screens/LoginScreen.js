@@ -8,8 +8,10 @@ import Button from './Component/Buttons';
 import Touchable2 from './Component/Touchable2';
 import { ActivityIndicator } from 'react-native';
 import Home from './HomeScreen';
-import Firebase from '../config/Firebase'
+import firebaseApp from '../config/Firebase'
 import Touchable3 from './Component/Touchable3';
+import { getDoc,getFirestore,doc } from 'firebase/firestore';
+
 import { getAuth,signInWithEmailAndPassword } from 'firebase/auth';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 function LoginScreen({ navigation }) {
@@ -19,7 +21,7 @@ function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-
+  const db=getFirestore(firebaseApp);
   useEffect(()=>{
     if(email.includes('@')&&email.includes('.com'))
     {
@@ -36,6 +38,9 @@ const onLoginPassword=async()=>{
   setLoading(true);
 try{
 await signInWithEmailAndPassword(auth,email,password)
+let res=await getDoc(doc(db,"Profile",email))
+console.log(res.data())
+alert('user Loggin')
 }catch(e)
 {
 console.log(e)
